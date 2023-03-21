@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Редактирование тура</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="/css/vanilla-zoom.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a class="navbar-brand logo" href="#">TripAgent</a>
+        <button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span
+                class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/slider">Slider</a></li>
+                <li th:if="${role == 'Менеджер'}" class="nav-item"><a class="nav-link active"
+                                                                      href="/profiles">Профили</a></li>
+                <li class="nav-item"><a class="nav-link" href="/catalog-page">Каталог</a></li>
+                <li th:if="${role == 'NOT'}" class="nav-item"><a class="nav-link" href="/login">Регистрация</a></li>
+                <li th:if="${role != 'NOT'}" class="nav-item">
+                    <form action="/logout" method="post">
+                        <button class="nav-link active" type="submit">Выход</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page login-page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Редактирование тура</h2>
+            </div>
+            <form th:action="'/trip/' + ${trip.id} + '/edit'" method="post" style="width: 100%;max-width: 100%;"
+                  enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Название тура</label>
+                    <input th:value="${trip.name}" name="name" type="text" class="form-control item" id="name"
+                           required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="country">Страна</label>
+                    <input th:value="${trip.country}" name="country" type="text" class="form-control item" id="country"
+                           required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Цена тура</label>
+                    <input th:value="${trip.price}" name="price" class="form-control item" type="number" id="price"
+                           required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="quantity">Количество проданных туров</label>
+                    <input th:value="${trip.quantity}" type="number" class="form-control" name="quantity" id="quantity"
+                           required/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="poster">Постер</label>
+                    <input id="poster" type="file" class="form-control" name="poster"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="one_client">Затраты на одного клиента без ЗП сотрудика</label>
+                    <input th:value="${zatraty.one_client}" id="one_client" type="number" class="form-control" required
+                           name="one_client"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="duration">Продолжительность тура</label>
+                    <input th:value="${zatraty.duration}" id="duration" type="number" class="form-control" required
+                           name="duration"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="transport">Транспорт</label>
+                    <input th:value="${zatraty.transport}" id="transport" type="text" class="form-control" required
+                           name="transport"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="hotel">Отель</label>
+                    <input th:value="${zatraty.hotel}" id="hotel" type="text" class="form-control" required
+                           name="hotel"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="escort">Сопровождающий сотрудник</label>
+                    <input th:value="${zatraty.escort}" id="escort" type="text" class="form-control" required
+                           name="escort"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="wage_escort">Ставка сопровождающего сотрудника</label>
+                    <input th:value="${zatraty.wage_escort}" id="wage_escort" type="number" class="form-control"
+                           required name="wage_escort"/>
+                </div>
+                <label class="form-label" for="passport">Документы:</label>
+                <div class="mb-3">
+                    <label class="form-label" for="passport">Паспорт</label>
+                    <input th:value="${docs.passport}" id="passport" type="text" class="form-control" required
+                           name="passport"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="tickets">Билеты</label>
+                    <input th:value="${docs.tickets}" id="tickets" type="text" class="form-control" required
+                           name="tickets"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="insurance">Страховка</label>
+                    <input th:value="${docs.insurance}" id="insurance" type="text" class="form-control" required
+                           name="insurance"/>
+                </div>
+                <button class="btn btn-primary text-center" id="Submit" type="submit">Редактировать</button>
+            </form>
+        </div>
+    </section>
+</main>
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

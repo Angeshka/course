@@ -1,0 +1,84 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <title>Login - Brand</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="/css/vanilla-zoom.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a class="navbar-brand logo" href="#">TripAgent</a>
+        <button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span
+                class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/slider">Slider</a></li>
+                <li th:if="${role == 'Менеджер'}" class="nav-item"><a class="nav-link active" href="/profiles">Профили</a></li>
+                <li class="nav-item"><a class="nav-link" href="/catalog-page">Каталог</a></li>
+                <li th:if="${role == 'NOT'}" class="nav-item"><a class="nav-link" href="/login">Регистрация</a></li>
+                <li th:if="${role != 'NOT'}" class="nav-item">
+                    <form action="/logout" method="post">
+                        <button class="nav-link" type="submit">Выход</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page login-page" style="max-width: 100%;">
+    <div class="d-lg-flex justify-content-lg-center align-items-lg-center block-heading"
+         style="margin-top: 20px;max-width: 100%;margin-bottom: 20px;">
+        <h2 class="text-info">Профили</h2>
+    </div>
+    <hr/>
+    <div class="align-items-lg-center" style="width: 90%;margin-left: 5%;">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col d-lg-flex justify-content-lg-center align-items-lg-center"><strong
+                    class="justify-content-lg-center align-items-lg-center">Логин</strong></div>
+            <div class="col d-lg-flex justify-content-lg-center align-items-lg-center"><strong
+                    class="justify-content-lg-center align-items-lg-center">Пароль</strong></div>
+            <div class="col d-lg-flex justify-content-lg-center align-items-lg-center"><strong
+                    class="justify-content-lg-center align-items-lg-center">Роль</strong></div>
+            <div class="col" style="max-width: 120px;"></div>
+        </div>
+        <div th:each="user : ${users}" class="row" style="max-width: 100%; margin-bottom: 5px">
+            <div class="col">
+                <form th:action="'/profiles/' + ${user.id} + '/edit'" method="post">
+                    <div class="row">
+                        <div class="col d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <input type="text" class="form-control" th:value="${user.username}" readonly/>
+                        </div>
+                        <div class="col d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <input type="text" class="form-control" th:value="${user.password}" readonly/>
+                        </div>
+                        <div class="col d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <select class="form-select" name="role">
+                                <option th:each="role : ${roles}" th:value="${role}" th:label="${role}"
+                                        th:selected="${role == user.role}"></option>
+                            </select>
+                        </div>
+                        <div class="col d-lg-flex justify-content-lg-center align-items-lg-center"
+                             style="max-width: 120px;">
+                            <button class="btn btn-primary" id="Submit" type="submit">Изменить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

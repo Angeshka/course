@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Документы</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="/css/vanilla-zoom.min.css">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a class="navbar-brand logo" href="/slider">TripAgent</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/slider">Slider</a></li>
+                <li class="nav-item" th:if="${role == 'Менеджер'}"><a class="nav-link active" href="/profiles">Профили</a></li>
+                <li class="nav-item"><a class="nav-link" href="/catalog-page">Каталог</a></li>
+                <li th:if="${role == 'NOT'}" class="nav-item"><a class="nav-link" href="/login">Регистрация</a></li>
+                <li th:if="${role != 'NOT'}" class="nav-item">
+                    <form action="/logout" method="post">
+                        <button class="nav-link active" type="submit">Выход</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page product-page">
+    <section class="clean-block clean-product dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Описание тура</h2>
+            </div>
+            <div class="block-content">
+                <div class="product-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="gallery">
+                                <div class="image"><img width="100%" th:src="'/img/' + ${trip.poster}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info">
+                                <h3 th:text="${trip.name}"></h3>
+                                <div class="rating">
+                                    <img src="/img/star.svg"><img src="/img/star.svg"><img src="/img/star.svg"><img src="/img/star-half-empty.svg"><img src="/img/star-empty.svg"></div>
+
+                                <div class="price">
+                                    <h3 th:text="'$' + ${trip.price}"></h3>
+                                </div>
+                                <a class="btn btn-success align-items-center text-center mb-2" th:href="'/trip/' + ${trip.id} + '/edit'" >Редактировать</a>
+                                <br>
+                                <a class="btn btn-danger align-items-center text-center" th:href="'/trip/' + ${trip.id} + '/delete'" >Удалить</a>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist" id="myTab">
+                            <li class="nav-item" role="presentation"><a class="nav-link " role="tab" data-bs-toggle="tab" id="description-tab" th:href="'/item/' + ${trip.id}">Описание тура</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" id="specifications-tabs" th:href="'/itemZatraty/' + ${trip.id}">Затраты</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link " role="tab" data-bs-toggle="tab" id="dohod-tabs" th:href="'/itemDohod/' + ${trip.id}">Доход</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" id="pribl-tabs" th:href="'/itemPribl/' + ${trip.id}">Прибыль</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link active " role="tab"
+                                                                        data-bs-toggle="tab" id="docs-tabs"
+                                                                        th:href="'/itemDocs/' + ${trip.id}">Документы</a>
+                            </li>
+                        </ul>
+
+                        <div class="row">
+                            <br>
+                            <div class="col-md-5">
+                                <br>
+                                <figure class="figure"><img class="img-fluid figure-img" width="200" height="200"   src="/img/tech/docs.png"></figure>
+                            </div>
+                            <div class="col-md-5">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active description" role="tabpanel" id="description">
+                                    <p>Паспорт:&nbsp;<span th:text="${docs.passport}"></span></p>
+                                    <p>Билеты:&nbsp;<span th:text="${docs.tickets}"></span></p>
+                                    <p>Страховка:&nbsp;<span th:text="${docs.insurance}"></span></p>
+                                </div>
+                            </div>
+                        </div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script src="assets/js/vanilla-zoom.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>
