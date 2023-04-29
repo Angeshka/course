@@ -1,0 +1,78 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <title>О нас</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="/css/vanilla-zoom.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a class="navbar-brand logo" href="#">TripAgent</a>
+        <button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span
+                class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/slider">Slider</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/about">О нас</a></li>
+                <li class="nav-item"><a class="nav-link" href="/reviews">Отзывы</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ad">Рекламный ролик</a></li>
+                <li th:if="${role == 'Менеджер'}" class="nav-item"><a class="nav-link"
+                                                                      href="/profiles">Профили</a></li>
+                <li class="nav-item"><a class="nav-link" href="/catalog-page">Каталог</a></li>
+                <li th:if="${role == 'NOT'}" class="nav-item"><a class="nav-link" href="/login">Регистрация</a></li>
+                <li th:if="${role != 'NOT'}" class="nav-item">
+                    <form action="/logout" method="post">
+                        <button class="btn btn-primary" type="submit">Выход</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page login-page" style="max-width: 100%;">
+    <div class="d-lg-flex justify-content-lg-center align-items-lg-center block-heading"
+         style="margin-top: 20px;max-width: 100%;margin-bottom: 20px;">
+        <h2 class="text-info">О нас</h2>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+            <div class="row">
+                <div class="col-12" align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit. Delectus doloremque id molestias perspiciatis porro praesentium qui reprehenderit rerum tenetur!
+                    Facere fuga hic, laudantium maiores molestias optio possimus quisquam quos suscipit.
+                </div>
+                <div class="col-12" align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit. Atque consequuntur harum hic ipsa iusto modi nemo, nesciunt quas velit vitae. Commodi esse ex minus
+                    nostrum optio provident quidem similique, tempore.
+                </div>
+                <div class="col-12" align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit. Atque dolorem ex explicabo natus nisi? Ad architecto asperiores aut consectetur expedita quos
+                    repellendus sapiente. Assumenda dolorem exercitationem laboriosam laudantium natus sapiente.
+                </div>
+                <div class="col-12" align="center">
+                    <iframe allowfullscreen="" frameborder="0" loading="lazy"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCGz6HJDVY9fht_jGVCprEpRCwZ8PSsqhc&amp;q=Minsk&amp;zoom=11"
+                            width="75%" height="400"
+                            style="box-shadow: 0px 0px 6px;border-radius: 5px;border: 1px solid rgb(255,255,255);width: 100%;margin-top: 15px;height: 500px;"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</main>
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script src="/js/vanilla-zoom.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>
