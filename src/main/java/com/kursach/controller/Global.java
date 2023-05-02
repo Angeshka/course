@@ -16,11 +16,11 @@ public class Global {
     @Autowired
     protected RepoTrip repoTrip;
     @Autowired
-    protected RepoDohod repoDohod;
+    protected RepoDohod repoIncome;
     @Autowired
-    protected RepoPribl repoPribl;
+    protected RepoPribl repoProfit;
     @Autowired
-    protected RepoZatraty repoZatraty;
+    protected RepoZatraty repoCosts;
     @Autowired
     protected RepoDocs repoDocs;
 
