@@ -26,9 +26,9 @@ public class TripAEDCont extends Global {
     public String tripDelete(@PathVariable Long id) {
         Trip trip = repoTrip.getById(id);
         repoTrip.delete(trip);
-        repoPribl.delete(repoPribl.findByIdTrip(id));
-        repoZatraty.delete(repoZatraty.findByIdTrip(id));
-        repoDohod.delete(repoDohod.findByIdTrip(id));
+        repoProfit.delete(repoProfit.findByIdTrip(id));
+        repoCosts.delete(repoCosts.findByIdTrip(id));
+        repoIncome.delete(repoIncome.findByIdTrip(id));
         return "redirect:/catalog-page";
     }
 
@@ -57,23 +57,23 @@ public class TripAEDCont extends Global {
 
         trip = repoTrip.saveAndFlush(trip);
 
-        Dohod dohod = new Dohod(price, quantity);
-        dohod.setIdTrip(trip.getId());
-        repoDohod.save(dohod);
+       Income income = new Income(price, quantity);
+        income.setIdTrip(trip.getId());
+        repoIncome.save(income);
 
         Docs docs = new Docs(passport, tickets, insurance);
         docs.setIdTrip(trip.getId());
         repoDocs.save(docs);
 
-        Zatraty zatraty = new Zatraty(one_client, duration, transport, hotel, escort, wage_escort);
-        zatraty.setIdTrip(trip.getId());
-        repoZatraty.save(zatraty);
+        Costs costs = new Costs(one_client, duration, transport, hotel, escort, wage_escort);
+        costs.setIdTrip(trip.getId());
+        repoCosts.save(costs);
 
         int a = (Integer.parseInt(price) - Integer.parseInt(one_client) - Integer.parseInt(wage_escort)) * Integer.parseInt(quantity);
         a *= 0.87;
-        Pribl pribl = new Pribl(String.valueOf(a), one_client, wage_escort);
-        pribl.setIdTrip(trip.getId());
-        repoPribl.save(pribl);
+        Profit profit = new Profit(String.valueOf(a), one_client, wage_escort);
+        profit.setIdTrip(trip.getId());
+        repoProfit.save(profit);
 
         return "redirect:/catalog-page";
     }
@@ -82,10 +82,10 @@ public class TripAEDCont extends Global {
     public String tripEdit(Model model, @PathVariable Long id) {
         AddAttributes(model);
         model.addAttribute("trip", repoTrip.getById(id));
-        model.addAttribute("dohod", repoDohod.findByIdTrip(id));
+        model.addAttribute("income", repoIncome.findByIdTrip(id));
         model.addAttribute("docs", repoDocs.findByIdTrip(id));
-        model.addAttribute("zatraty", repoZatraty.findByIdTrip(id));
-        model.addAttribute("pribl", repoPribl.findByIdTrip(id));
+        model.addAttribute("costs", repoCosts.findByIdTrip(id));
+        model.addAttribute("profit", repoProfit.findByIdTrip(id));
         return "tripEdit";
     }
 
@@ -118,10 +118,10 @@ public class TripAEDCont extends Global {
 
         repoTrip.save(trip);
 
-        Dohod dohod = repoDohod.findByIdTrip(trip.getId());
-        dohod.setPrice(price);
-        dohod.setQuantity(quantity);
-        repoDohod.save(dohod);
+        Income income = repoIncome.findByIdTrip(trip.getId());
+        income.setPrice(price);
+        income.setQuantity(quantity);
+        repoIncome.save(income);
 
         Docs docs = repoDocs.findByIdTrip(trip.getId());
         docs.setPassport(passport);
@@ -129,22 +129,22 @@ public class TripAEDCont extends Global {
         docs.setInsurance(insurance);
         repoDocs.save(docs);
 
-        Zatraty zatraty = repoZatraty.findByIdTrip(trip.getId());
-        zatraty.setOne_client(one_client);
-        zatraty.setDuration(duration);
-        zatraty.setTransport(transport);
-        zatraty.setHotel(hotel);
-        zatraty.setEscort(escort);
-        zatraty.setWage_escort(wage_escort);
-        repoZatraty.save(zatraty);
+        Costs costs = repoCosts.findByIdTrip(trip.getId());
+        costs.setOne_client(one_client);
+        costs.setDuration(duration);
+        costs.setTransport(transport);
+        costs.setHotel(hotel);
+        costs.setEscort(escort);
+        costs.setWage_escort(wage_escort);
+        repoCosts.save(costs);
 
         int a = (Integer.parseInt(price) - Integer.parseInt(one_client) - Integer.parseInt(wage_escort)) * Integer.parseInt(quantity);
         a *= 0.87;
-        Pribl pribl = repoPribl.findByIdTrip(id);
-        pribl.setDohod(String.valueOf(a));
-        pribl.setOne_client(one_client);
-        pribl.setWage_escort(wage_escort);
-        repoPribl.save(pribl);
+        Profit profit = repoProfit.findByIdTrip(id);
+        profit.setIncome(String.valueOf(a));
+        profit.setOne_client(one_client);
+        profit.setWage_escort(wage_escort);
+        repoProfit.save(profit);
 
         return "redirect:/catalog-page";
     }
