@@ -26,13 +26,18 @@
                     <h2 class="text-info">Вход</h2>
                 </div>
                 <form method="post" action="/login">
+                    <div th:if="${param.error}" class="mb-3">
+                        <div class="alert alert-warning" role="alert">
+                            <strong>Некорректный ввод логина или пароля!</strong>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label" fr="username">Логин</label>
-                        <input class="form-control item" type="text" id="username" name="username">
+                        <input class="form-control item" type="text" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="password">Пароль</label>
-                        <input class="form-control" type="password" id="password" name="password">
+                        <input class="form-control" type="password" id="password" name="password" required>
                     </div>
                     <div class="mb-3">
                         <div>
